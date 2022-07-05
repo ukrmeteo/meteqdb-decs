@@ -1,10 +1,8 @@
 ## MetEqDB-desc
-**DB Description**  
-of the **MET**eorological measuring **EQ**uipment **D**ata**B**ase
+**MET**eorological measuring **EQ**uipment **D**ata**B**ase / DB Description
 
-
-# Опис
-### бази даних гідрометеорологічного вимірювального обладнання
+# Опис бази даних
+### гідрометеорологічного вимірювального обладнання
 
 ---
 &copy; 2022, [UHMC](https://meteo.gov.ua/)
