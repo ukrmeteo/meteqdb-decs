@@ -25,7 +25,7 @@
 
 ## Опис таблиць та їх полів
 
-### etalon {# tbl_etalon}
+### etalon {#tbl_etalon}
 
 Таблиця еталонних ЗВТ, які перебувають в експлуатації ЦГО
 
@@ -55,7 +55,7 @@ CREATE TABLE `etalon` {
 - **updt**      – дата оновлення
 
 
-### equip {# tbl_equip}
+### equip {#tbl_equip}
 
 measuring EQUIPment - вимірювальне обладнання
 
@@ -89,7 +89,7 @@ CREATE TABLE `equip` (
 - **updt**       – дата оновлення
 
 
-### calibr {# tbl_calibr}
+### calibr {#tbl_calibr}
 
 Таблиця еталонних ЗВТ, які перебувають в експлуатації ЦГО
 
@@ -100,7 +100,7 @@ CREATE TABLE `calibr` {
 ```
 
 
-### session {# tbl_session}
+### session {#tbl_session}
 
 Таблиця лише "живих" сесій. Також сесії (login/logout) синхронно записуються у лог-файл, де і залишаються назавжди.
 `login` - записує сесію користувача у цю таблицю, `logout` - видаляє.
