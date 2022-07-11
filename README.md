@@ -64,18 +64,20 @@ CREATE TABLE `user` (
 
 ```mysql
 CREATE TABLE `session` {
-  ses_id       varchar(36)
-  ses_user     int
-  ses_keep     enum(0,1)
-  ses_exp      date
-  updt         timestamp
-}
+  `ses_user`  int unsigned NOT NULL DEFAULT '0',
+  `ses_id`    varchar(36) NOT NULL DEFAULT '',
+  `ses_keep`  enum(0,1) NOT NULL DEFAULT '0',
+  `ses_exp`   date NOT NULL DEFAULT '2000-01-01',
+  `updt`      timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--
+  UNIQUE `uni_user` (`ses_user`),
+)ENGINE=MyISAM;
 ```
 
-- **ses_id**   - не unique - неймовірно, якщо співпаде, але якщо так, то все одно, окремо від користувача не береться (прикл: 5ab8e472-12d0-4e8d-8c40-db6486403982)
-- **ses_user** - [unique, ref: - user.usr_id]
-- **ses_keep** - опція "запам'ятати мене" продовжує expire на 2 тижні при користуванні, зкидується розлогинуванням
-- **ses_exp**  - session (expiration date)
+- **ses_id**   - не unique! 0% ймовірності, якщо дві сесії співпадуть, але якщо так, то все одно, береться від конкретного користувача (прикл: `5ab8e472-12d0-4e8d-8c40-db6486403982`)
+- **ses_user** - не може бути більше 1 запису для одного користувача, [ref: - user.usr_id]
+- **ses_keep** - опція "запам'ятати мене" продовжує дату `ses_exp`, кожний раз при перевірці `ses_id` або логіні (наприклад на 2 тижні), зкидується виходом о з системи, зняття користувачем відповідного прапорця, або по виходу дати в разі неактивності.
+- **ses_exp**  - день до якої дійсна сесія (expiration date)
 - **updt**     - дата оновлення запису
 
 
