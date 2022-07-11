@@ -25,6 +25,58 @@
 
 ## Опис таблиць та їх полів
 
+### user {#tbl_user}
+
+```mysql
+CREATE TABLE `user` (
+  `usr_id`        int UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  `lname`         varchar(40) NOT NULL DEFAULT '',
+  `fname`         varchar(40) NOT NULL DEFAULT '',
+  `sname`         varchar(40) NOT NULL DEFAULT '',
+  `tel1`          varchar(15) NOT NULL DEFAULT '',
+  `tel2`          varchar(15) NOT NULL DEFAULT '',
+  `email`         varchar(40) NOT NULL DEFAULT '',
+  `passw`         varchar(128) NOT NULL DEFAULT '',
+  `posit`         varchar(250) NOT NULL DEFAULT '',
+  `usr_bran`      int NOT NULL DEFAULT '0',
+  `usr_state`     int NOT NULL DEFAULT '0',
+  `usr_reg`       date NOT NULL DEFAULT '2000-01-01 00:00:00',
+  `updt`          timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+)ENGINE=MyISAM;
+
+- **usr_id**    - [pk, increment]
+- **lname**     - прізвище, (last name)
+- **fname**     - ім'я, (first name)
+- **sname**     - по батькові, (second name)
+- **tel1**      - телефон 1
+- **tel2**      - телефон 2
+- **email**     - електронна пошта
+- **passw**     - пароль
+- **posit**     - посада (position)
+- **usr_bran**  - підрозділ [ref: > branch.bra_id]
+- **usr_state** - стан
+- **usr_reg**   - дата реєстрації
+- **updt**      - дата оновлення запису
+```
+
+### session {#tbl_session}
+
+```mysql
+CREATE TABLE `session` {
+  ses_id       varchar(36)
+  ses_user     int
+  ses_keep     enum(0,1)
+  ses_exp      date
+  updt         timestamp
+}
+
+- **ses_id**   - не unique - неймовірно, якщо співпаде, але якщо так, то все одно, окремо від користувача не береться (прикл: 5ab8e472-12d0-4e8d-8c40-db6486403982)
+- **ses_user** - [unique, ref: - user.usr_id]
+- **ses_keep** - опція "запам'ятати мене" продовжує expire на 2 тижні при користуванні, зкидується розлогинуванням
+- **ses_exp**  - session (expiration date)
+- **updt**     - дата оновлення запису
+```
+
 ### etalon {#tbl_etalon}
 
 Таблиця еталонних ЗВТ, які перебувають в експлуатації ЦГО
@@ -34,8 +86,8 @@ CREATE TABLE `etalon` {
   `eta_id`        int unsigned PRIMARY KEY AUTO_INCREMENT,
   `eta_type`      int
   `eta_numb`      int
-  `eta_prod`      year
-  `eta_state`     enum('O','X')
+  `eta_prod`      year NOT NULL DEFAULT '2000-01-01 00:00:00',
+  `eta_state`     enum('O','X') NOT NULL DEFAULT '0',
   `eta_usedt`     date
   `eta_bran`      int
   `eta_caldt`     date
