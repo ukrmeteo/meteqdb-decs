@@ -43,6 +43,7 @@ CREATE TABLE `user` (
   `usr_reg`       date NOT NULL DEFAULT '2000-01-01 00:00:00',
   `updt`          timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )ENGINE=MyISAM;
+```
 
 - **usr_id**    - [pk, increment]
 - **lname**     - прізвище, (last name)
@@ -57,7 +58,7 @@ CREATE TABLE `user` (
 - **usr_state** - стан
 - **usr_reg**   - дата реєстрації
 - **updt**      - дата оновлення запису
-```
+
 
 ### session {#tbl_session}
 
@@ -69,13 +70,14 @@ CREATE TABLE `session` {
   ses_exp      date
   updt         timestamp
 }
+```
 
 - **ses_id**   - не unique - неймовірно, якщо співпаде, але якщо так, то все одно, окремо від користувача не береться (прикл: 5ab8e472-12d0-4e8d-8c40-db6486403982)
 - **ses_user** - [unique, ref: - user.usr_id]
 - **ses_keep** - опція "запам'ятати мене" продовжує expire на 2 тижні при користуванні, зкидується розлогинуванням
 - **ses_exp**  - session (expiration date)
 - **updt**     - дата оновлення запису
-```
+
 
 ### etalon {#tbl_etalon}
 
