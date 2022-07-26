@@ -12,6 +12,7 @@
 ## Структура БД
 
 - [`equip`](#tbl_equip) - таблиця гідрометеорологічного обладнання
+- [`region`](#tbl_region) - таблиця регіональних ЦГМ
 - [`etalon`](#tbl_etalon) - таблиця еталонного обладнання
 - [`calibr`](#tbl_calibr) - таблиця калібрувань
 - [`session`](#tbl_session) - таблиця сесій користувачів
@@ -79,6 +80,25 @@ CREATE TABLE `session` {
 - **ses_keep** - опція "запам'ятати мене" продовжує дату `ses_exp`, кожний раз при перевірці `ses_id` або логіні (наприклад на 2 тижні), зкидується виходом о з системи, зняття користувачем відповідного прапорця, або по виходу дати в разі неактивності.
 - **ses_exp**  - день до якої дійсна сесія (expiration date)
 - **updt**     - дата оновлення запису
+
+
+### region {#tbl_region}
+
+Таблиця регіональних ЦГМ
+
+```mysql
+CREATE TABLE `region` {
+  `reg_id`    tinyint unsigned PRIMARY KEY AUTO_INCREMENT,
+  `reg_name`  varchar(36) NOT NULL DEFAULT '',
+  `updt`      timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--
+  UNIQUE `uni_reg_name` (`reg_name`),
+)ENGINE=MyISAM;
+```
+
+- **reg_id**    – id еталона (unsigned int: до 16_777_215)
+- **reg_name**  – назва еталона, маркировка > type.typ_id
+- **updt**      – дата оновлення запису
 
 
 ### etalon {#tbl_etalon}
