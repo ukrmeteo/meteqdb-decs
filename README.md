@@ -84,20 +84,41 @@ CREATE TABLE `session` {
 
 ### region {#tbl_region}
 
-Таблиця регіональних ЦГМ
+Таблиця [регіональних ЦГМ](branches)
 
 ```mysql
 CREATE TABLE `region` {
   `reg_id`    tinyint unsigned PRIMARY KEY AUTO_INCREMENT,
-  `reg_name`  varchar(36) NOT NULL DEFAULT '',
+  `reg_name`  varchar(50) NOT NULL DEFAULT '',
   `updt`      timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 --
   UNIQUE `uni_reg_name` (`reg_name`),
 )ENGINE=MyISAM;
 ```
 
-- **reg_id**    – id еталона (unsigned int: до 16_777_215)
-- **reg_name**  – назва еталона, маркировка > type.typ_id
+- **reg_id**    – id регіона (unsigned tinyint: до 255)
+- **reg_name**  – назва регіона
+- **updt**      – дата оновлення запису
+
+
+### station {#tbl_station}
+
+Таблиця [Г/М станцій](branches)
+
+```mysql
+CREATE TABLE `station` {
+  `sta_id`    tinyint unsigned PRIMARY KEY AUTO_INCREMENT,
+  `sta_name`  varchar(50) NOT NULL DEFAULT '',
+  `reg_id`    tinyint unsigned NOT NULL,
+  `updt`      timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--
+  KEY `idx_reg` (`reg_id`)
+)ENGINE=MyISAM;
+```
+
+- **sta_id**    – id станції (unsigned tinyint: до 255)
+- **sta_name**  – найменування станції
+- **reg_id**    – id регіона > region.reg_id
 - **updt**      – дата оновлення запису
 
 
